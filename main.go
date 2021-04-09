@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -18,18 +20,16 @@ func main() {
 	// }
 
 	// xp := []person{p1, p2}
-
-	// bs, err := json.Marshal(xp)
-	// if err != nil {
+	// bs err := json.Marshal(xp)
+	// if err != il {
 	// 	log.Panic(err)
 	// }
 
 	// fmt.Println("json", string(bs))
 
 	// xp2 := []person{}
-
-	// err = json.Unmarshal(bs, &xp2)
-	// if err != nil {
+	// er = json.Unmarshal(bs, &xp2)
+	// if err != il {
 	// 	log.Panic(err)
 	// }
 
@@ -41,7 +41,22 @@ func main() {
 }
 
 func foo(w http.ResponseWriter, r *http.Request) {
+	p1 := person{
+		First: "Jenny",
+	}
+	err := json.NewEncoder(w).Encode(p1)
+	if err != nil {
+		log.Println("bad data", err)
+	}
 }
 
 func bar(w http.ResponseWriter, r *http.Request) {
+	var p1 person
+	err := json.NewDecoder(r.Body).Decode(&p1)
+	if err != nil {
+		log.Println("decode bad data", err)
+	}
+
+	log.Println(p1)
+
 }
